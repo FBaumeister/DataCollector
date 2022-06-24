@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
 
-
-
 #######################################################################################################################
 # Cpp Standard
 #######################################################################################################################
@@ -11,8 +9,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 #######################################################################################################################
 
 
-project(DataCollector VERSION 1.0.0)
-
+project(DataCollectorService VERSION 1.0.0)
+set(PROJECT_NAMESPACE DCS) # DataCollectorService
 
 
 # Find some project-wide dependencies
