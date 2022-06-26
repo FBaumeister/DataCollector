@@ -1,5 +1,5 @@
 
-set(TARGET_NAME FileMonitor)
+set(TARGET_NAME Utilities)
 
 set(SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/src/${TARGET_NAME})
 set(INCLUDE_DIR_ROOT ${CMAKE_CURRENT_LIST_DIR}/include)
@@ -14,7 +14,7 @@ add_library(${PROJECT_NAMESPACE}::${TARGET_NAME} ALIAS ${TARGET_NAME})
 # Include Files
 target_sources(${TARGET_NAME}
     PRIVATE
-        # ${INCLUDE_DIR}/
+        ${INCLUDE_DIR}/Utilities_fwd.h
         #...
 )
 

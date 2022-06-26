@@ -14,7 +14,8 @@ add_library(${PROJECT_NAMESPACE}::${TARGET_NAME} ALIAS ${TARGET_NAME})
 # Include Files
 target_sources(${TARGET_NAME}
     PRIVATE
-        # ${INCLUDE_DIR}/
+        ${INCLUDE_DIR}/Prerequisites.h
+        ${INCLUDE_DIR}/DataCollector_fwd.h
         #...
 )
 

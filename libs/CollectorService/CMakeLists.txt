@@ -9,7 +9,7 @@ add_executable(${TARGET_NAME} "")
 # Source Files
 target_sources(${TARGET_NAME}
     PRIVATE
-        # ${SRC_DIR}/
+        ${SRC_DIR}/main.cpp
         #...
 )
 
@@ -24,8 +24,8 @@ target_include_directories(${TARGET_NAME} PUBLIC ${SRC_DIR})
 #######################################################################################################################
 # Targets Dependencies
 #######################################################################################################################
-target_link_libraries(${TARGET_NAME} PRIVATE DCS::Helper)
+target_link_libraries(${TARGET_NAME} PRIVATE DCS::Utilities)
 target_link_libraries(${TARGET_NAME} PRIVATE DCS::DataCollector)
-target_link_libraries(${TARGET_NAME} PRIVATE DCS::FileMonitor)
+target_link_libraries(${TARGET_NAME} PRIVATE DCS::FileSystemMonitor)
 target_link_libraries(${TARGET_NAME} PRIVATE DCS::DataPackager)
 #######################################################################################################################

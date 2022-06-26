@@ -8,9 +8,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 #######################################################################################################################
 
-
-project(DataCollectorService VERSION 1.0.0)
-set(PROJECT_NAMESPACE DCS) # DataCollectorService
+#######################################################################################################################
+# Project config
+#######################################################################################################################
+project(DataCollectorService  VERSION 1.0.0
+                              LANGUAGES CXX
+                              HOMEPAGE_URL "https://github.com/FBaumeister/DataCollector")
+set(PROJECT_NAMESPACE DCS)
+#######################################################################################################################
 
 
 # Find some project-wide dependencies
