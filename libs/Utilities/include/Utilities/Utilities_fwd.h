@@ -7,9 +7,9 @@
 #ifndef UTILITIES_UTILITIES_FWD_H
 #define UTILITIES_UTILITIES_FWD_H
 
+namespace Utilities
+{
 
-
-
-
+}
 
 #endif

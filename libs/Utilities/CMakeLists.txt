@@ -15,13 +15,15 @@ add_library(${PROJECT_NAMESPACE}::${TARGET_NAME} ALIAS ${TARGET_NAME})
 target_sources(${TARGET_NAME}
     PRIVATE
         ${INCLUDE_DIR}/Utilities_fwd.h
+        ${INCLUDE_DIR}/Utilities.h
+        ${INCLUDE_DIR}/ConsoleHandler.h
         #...
 )
 
 # Source Files
 target_sources(${TARGET_NAME}
     PRIVATE
-        # ${SRC_DIR}/
+        ${SRC_DIR}/ConsoleHandler.cpp
         #...
 )
 

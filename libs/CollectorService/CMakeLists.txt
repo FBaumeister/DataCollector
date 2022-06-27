@@ -1,6 +1,7 @@
 
 set(TARGET_NAME CollectorService)
-set(SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/src/${TARGET_NAME})
+set(SRC_DIR_ROOT ${CMAKE_CURRENT_LIST_DIR}/src)
+set(SRC_DIR ${SRC_DIR_ROOT}/${TARGET_NAME})
 
 
 add_executable(${TARGET_NAME} "")
@@ -17,7 +18,7 @@ target_sources(${TARGET_NAME}
 # Target's own include directories
 # Merged Header Placement
 #######################################################################################################################
-target_include_directories(${TARGET_NAME} PUBLIC ${SRC_DIR})
+target_include_directories(${TARGET_NAME} PUBLIC ${SRC_DIR_ROOT})
 #######################################################################################################################
 
 
@@ -25,7 +26,7 @@ target_include_directories(${TARGET_NAME} PUBLIC ${SRC_DIR})
 # Targets Dependencies
 #######################################################################################################################
 target_link_libraries(${TARGET_NAME} PRIVATE DCS::Utilities)
-target_link_libraries(${TARGET_NAME} PRIVATE DCS::DataCollector)
-target_link_libraries(${TARGET_NAME} PRIVATE DCS::FileSystemMonitor)
-target_link_libraries(${TARGET_NAME} PRIVATE DCS::DataPackager)
+#target_link_libraries(${TARGET_NAME} PRIVATE DCS::DataCollector)
+#target_link_libraries(${TARGET_NAME} PRIVATE DCS::FileSystemMonitor)
+#target_link_libraries(${TARGET_NAME} PRIVATE DCS::DataPackager)
 #######################################################################################################################
