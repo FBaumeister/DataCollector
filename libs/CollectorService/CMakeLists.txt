@@ -27,6 +27,6 @@ target_include_directories(${TARGET_NAME} PUBLIC ${SRC_DIR_ROOT})
 #######################################################################################################################
 target_link_libraries(${TARGET_NAME} PRIVATE DCS::Utilities)
 #target_link_libraries(${TARGET_NAME} PRIVATE DCS::DataCollector)
-#target_link_libraries(${TARGET_NAME} PRIVATE DCS::FileSystemMonitor)
+target_link_libraries(${TARGET_NAME} PRIVATE DCS::FileSystemMonitor)
 #target_link_libraries(${TARGET_NAME} PRIVATE DCS::DataPackager)
 #######################################################################################################################

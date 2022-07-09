@@ -16,13 +16,14 @@ target_sources(${TARGET_NAME}
     PRIVATE
         ${INCLUDE_DIR}/Prerequisites.h
         ${INCLUDE_DIR}/FileSystemMonitor_fwd.h
+        ${INCLUDE_DIR}/FolderMonitor.h
         #...
 )
 
 # Source Files
 target_sources(${TARGET_NAME}
     PRIVATE
-        # ${SRC_DIR}/
+        ${SRC_DIR}/FolderMonitor.cpp
         #...
 )
 

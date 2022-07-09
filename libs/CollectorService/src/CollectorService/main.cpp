@@ -1,5 +1,7 @@
 
 #include "CollectorService/Help.h"
+#include "CollectorService/FilenameChecker.h"
+#include "CollectorService/Monitor.h"
 
 #include "Utilities/Utilities.h"
 
@@ -39,19 +41,16 @@ int main(int argc, char **argv)
 {
     std::cout << "DataCollector Service: WIP" << std::endl;
 
-
     // [TODO] Utilities - process and filter argv
     processCommandLineOptions(argc, argv);
-    std::string fileToMonitor = "core.1234.lz4";  // WIP
-    /*if(!Utilities::filterFileName(fileToMonitor))
+    std::string fileToSearchFor = "core.1234.lz4";  // WIP
+    std::string folderToMonitor = ".";
+    if(!FilenameChecker::isAllowed(fileToSearchFor))
     {
+        std::cout << "FileName does not match searching criteria: " << fileToSearchFor << std::endl;
         printHelp();
         return -1;
-    }*/
-
-
-    // Utilities - setup console signal handler (interrupt loop and safe cleanup)
-    Utilities::setConsoleSignalHandler(consoleHandler);
+    }
 
     // [TODO] Create DataCollector Instance
     // [TODO] Register Collectors
@@ -59,11 +58,15 @@ int main(int argc, char **argv)
     // [TODO] Create DataPackager Instance
     // [TODO] Setup to package data on new data collection
 
-    // [TODO] Create FileSystemMonitor
+    Monitor fileMonitor{folderToMonitor /*, dataCollector */};
     // [TODO] Link: onFileCreated - trigger to DataCollector
 
-    // loop and wait for signal handler to capture SIGINT
-    std::cout << "Entering operational state..." << std::endl;
+
+    // Utilities - setup console signal handler (interrupt loop and safe cleanup)
+    Utilities::setConsoleSignalHandler(consoleHandler);
+
+    // Operational State -> Loop until SIGINT
+    std::cout << "Entering operational state. Press Ctrl + C to quit." << std::endl;
     while(KEEP_SERVICE_RUNNING)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds{10});
