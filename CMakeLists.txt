@@ -15,6 +15,9 @@ project(DataCollectorService  VERSION 1.0.0
                               LANGUAGES CXX
                               HOMEPAGE_URL "https://github.com/FBaumeister/DataCollector")
 set(PROJECT_NAMESPACE DCS)
+
+option(BUILD_UNITTESTS  "Build Unit Tests." ON)
+
 #######################################################################################################################
 
 
@@ -49,6 +52,7 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(googletest)
+enable_testing()
 #######################################################################################################################
 
 

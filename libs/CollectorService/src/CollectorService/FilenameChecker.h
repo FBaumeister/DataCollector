@@ -19,28 +19,28 @@ namespace CollectorService
             // Early exit
             if(p_filename.empty())
             {
-                return false;
+                throw std::runtime_error{"Filename empty!"};
             }
 
             // Starts with `core`
             if(!p_filename.starts_with("core"))
             {
-                return false;
+                throw std::runtime_error{"Filename does not start with 'core'!"};
             }
 
             // Ends with `lz4`
             if(!p_filename.ends_with("lz4"))
             {
-                return false;
+                throw std::runtime_error{"Filename does not end with 'lz4'!"};
             }
 
             // Contains one or more hexadecimal id separated by dots
             // Built and first tests with https://regex101.com/
-            const std::regex reg{"(([0-9a-fA-F]{2})+[.]{1}"};
+            const std::regex reg{"([0-9a-fA-F]{2})+[.]{1}"};
 
-            if(!std::regex_match(p_filename.data(), reg))
+            if(!std::regex_search(p_filename.data(), reg))
             {
-                return false;
+                throw std::runtime_error{"Filename does not match expected pattern!"};
             }
 
             return true;
