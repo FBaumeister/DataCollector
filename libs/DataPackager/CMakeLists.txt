@@ -16,13 +16,14 @@ target_sources(${TARGET_NAME}
     PRIVATE
         ${INCLUDE_DIR}/Prerequisites.h
         ${INCLUDE_DIR}/DataPackager_fwd.h
+        ${INCLUDE_DIR}/TarPackager.h
         #...
 )
 
 # Source Files
 target_sources(${TARGET_NAME}
     PRIVATE
-        # ${SRC_DIR}/
+        ${SRC_DIR}/TarPackager.cpp
         #...
 )
 
@@ -39,5 +40,5 @@ target_include_directories(${TARGET_NAME} PUBLIC
 #######################################################################################################################
 # Targets Dependencies
 #######################################################################################################################
-# ...
+# NOTE: Some dedicated tar library here
 #######################################################################################################################

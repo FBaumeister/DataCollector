@@ -7,9 +7,9 @@
 #ifndef DATAPACKAGER_DATAPACKAGER_FWD_H
 #define DATAPACKAGER_DATAPACKAGER_FWD_H
 
-
-
-
-
+namespace DataPackager
+{
+    class TarPackager;
+}
 
 #endif
