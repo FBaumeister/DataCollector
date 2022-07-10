@@ -1,7 +1,9 @@
-
 #include "CollectorService/Help.h"
 #include "CollectorService/FilenameChecker.h"
 #include "CollectorService/Monitor.h"
+#include "CollectorService/DiskUsageCollector.h"
+
+#include "DataCollector/CollectorInstance.h"
 
 #include "Utilities/Utilities.h"
 
@@ -43,29 +45,35 @@ int main(int argc, char **argv)
 
     // [TODO] Utilities - process and filter argv
     processCommandLineOptions(argc, argv);
-    std::string fileToSearchFor = "core.1234.lz4";  // WIP
-    std::string folderToMonitor = ".";
-    if(!FilenameChecker::isAllowed(fileToSearchFor))
+    const auto fileToSearchFor = ("core.1234.lz4");       // Configurable via Commandline args
+    const auto folderToMonitor = std::string(".");        // Configurable via Commandline args
+    const auto logToFolder = std::filesystem::path(".");  // Configurable via Commandline args
+
+
+    std::string ec;
+    if(!FilenameChecker::isAllowed(fileToSearchFor, ec))
     {
         std::cout << "FileName does not match searching criteria: " << fileToSearchFor << std::endl;
         printHelp();
         return -1;
     }
 
-    // [TODO] Create DataCollector Instance
-    // [TODO] Register Collectors
+    // Create DataCollector Instance
+    auto dataCollector{std::make_unique<DataCollector::CollectorInstance>(logToFolder)};
 
-    // [TODO] Create DataPackager Instance
-    // [TODO] Setup to package data on new data collection
+    // Register collectors. Triggered when monitored file is created
+    dataCollector->registerCollector(std::make_shared<DiskUsageCollector>());
+    //dataCollector.registerCollector(SomeCustomCollector?);
 
-    Monitor fileMonitor{folderToMonitor /*, dataCollector */};
-    // [TODO] Link: onFileCreated - trigger to DataCollector
+    // Start monitoring
+    Monitor fileMonitor{folderToMonitor, std::move(dataCollector)};
 
 
     // Utilities - setup console signal handler (interrupt loop and safe cleanup)
     Utilities::setConsoleSignalHandler(consoleHandler);
 
     // Operational State -> Loop until SIGINT
+
     std::cout << "Entering operational state. Press Ctrl + C to quit." << std::endl;
     while(KEEP_SERVICE_RUNNING)
     {

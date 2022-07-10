@@ -14,7 +14,7 @@ namespace CollectorService
 {
     namespace FilenameChecker
     {
-        static bool isAllowed(std::string_view p_filename)
+        static void isAllowed(std::string_view p_filename)
         {
             // Early exit
             if(p_filename.empty())
@@ -42,9 +42,28 @@ namespace CollectorService
             {
                 throw std::runtime_error{"Filename does not match expected pattern!"};
             }
-
-            return true;
         }
+
+        static bool isAllowed(std::string_view p_filename, std::string& error_code)
+        {
+            // Clear EC
+            error_code = std::string();
+
+            try
+            {
+                // Call the exception version
+                isAllowed(p_filename);
+                return true;
+            }
+            catch(std::exception& e)
+            {
+                error_code = std::string(e.what());
+                return false;
+            }
+            return true;  // Satisfy some "non-return" -warnings
+        }
+
+
     }  // namespace FilenameChecker
 }  // namespace CollectorService
 

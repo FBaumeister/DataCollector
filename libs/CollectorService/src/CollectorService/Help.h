@@ -17,6 +17,9 @@ namespace CollectorService
         {
             std::string help;
 
+            help += " <WIP>\n";
+            help += "Currently running with preconfigured values.";
+
 
             return help;
         }

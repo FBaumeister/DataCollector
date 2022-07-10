@@ -11,6 +11,7 @@ add_executable(${TARGET_NAME} "")
 target_sources(${TARGET_NAME}
     PRIVATE
         ${SRC_DIR}/main.cpp
+        ${SRC_DIR}/Monitor.cpp
         #...
 )
 
@@ -26,7 +27,7 @@ target_include_directories(${TARGET_NAME} PUBLIC ${SRC_DIR_ROOT})
 # Targets Dependencies
 #######################################################################################################################
 target_link_libraries(${TARGET_NAME} PRIVATE DCS::Utilities)
-#target_link_libraries(${TARGET_NAME} PRIVATE DCS::DataCollector)
+target_link_libraries(${TARGET_NAME} PRIVATE DCS::DataCollector)
 target_link_libraries(${TARGET_NAME} PRIVATE DCS::FileSystemMonitor)
-#target_link_libraries(${TARGET_NAME} PRIVATE DCS::DataPackager)
+target_link_libraries(${TARGET_NAME} PRIVATE DCS::DataPackager)
 #######################################################################################################################

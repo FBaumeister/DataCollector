@@ -2,8 +2,8 @@
 
 list(APPEND ENABLED_COMPONENT "Utilities")
 list(APPEND ENABLED_COMPONENT "FileSystemMonitor")
-#list(APPEND ENABLED_COMPONENT "DataPackager")
-#list(APPEND ENABLED_COMPONENT "DataCollector")
+list(APPEND ENABLED_COMPONENT "DataPackager")
+list(APPEND ENABLED_COMPONENT "DataCollector")
 
 list(APPEND ENABLED_COMPONENT "CollectorService")
 

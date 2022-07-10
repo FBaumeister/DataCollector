@@ -29,9 +29,11 @@ protected:
 
 TEST_F(FileNameChecker, StartsWith)
 {
+    std::string ec;
     for(const auto& file : this->validFileNames)
     {
-        ASSERT_TRUE(isAllowed(file));
+        ASSERT_TRUE(isAllowed(file, ec));
+        ASSERT_TRUE(ec.empty());
     }
 
     // Copy valid filenames and modify it
@@ -50,9 +52,11 @@ TEST_F(FileNameChecker, StartsWith)
 
 TEST_F(FileNameChecker, EndsWith)
 {
+    std::string ec;
     for(const auto& file : this->validFileNames)
     {
-        ASSERT_TRUE(isAllowed(file));
+        ASSERT_TRUE(isAllowed(file, ec));
+        ASSERT_TRUE(ec.empty());
     }
 
     // Copy valid filenames and modify it
@@ -70,9 +74,11 @@ TEST_F(FileNameChecker, EndsWith)
 
 TEST_F(FileNameChecker, ContainsHexIDs)
 {
+    std::string ec;
     for(const auto& file : this->validFileNames)
     {
-        ASSERT_TRUE(isAllowed(file));
+        ASSERT_TRUE(isAllowed(file, ec));
+        ASSERT_TRUE(ec.empty());
     }
 
     // Make up a list of non-valid filenames with respect to begin and ending
