@@ -16,13 +16,16 @@ target_sources(${TARGET_NAME}
     PRIVATE
         ${INCLUDE_DIR}/Prerequisites.h
         ${INCLUDE_DIR}/DataCollector_fwd.h
+        ${INCLUDE_DIR}/CollectorInstance.h
+        ${INCLUDE_DIR}/CollectorBase.h
         #...
 )
 
 # Source Files
 target_sources(${TARGET_NAME}
     PRIVATE
-        # ${SRC_DIR}/
+        ${SRC_DIR}/CollectorInstance.cpp
+        ${SRC_DIR}/CollectorBase.cpp
         #...
 )
 
