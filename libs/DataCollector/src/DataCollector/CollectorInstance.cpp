@@ -1,6 +1,7 @@
 #include "DataCollector/CollectorInstance.h"
 
 #include <cassert>
+#include <iostream>
 
 using namespace DataCollector;
 
@@ -19,6 +20,8 @@ std::filesystem::path CollectorInstance::getStoreFolder() const
 
 std::filesystem::path CollectorInstance::triggerDataCollection() const
 {
+    checkTargetFolderStatus();
+
     std::lock_guard<std::mutex> lock{m_mutex};
     for(auto& [ID, collector] : m_registeredCollectors)
     {
@@ -50,7 +53,8 @@ void CollectorInstance::checkTargetFolderStatus() const
 
     if(!std::filesystem::exists(m_storeFolder))
     {
-        throw std::runtime_error{"Cannot create CollectorInstance. Folder does not exist!"};
+        std::cout << "- CollectorInstance: log folder does not exist. Creating folder " << m_storeFolder.string() << std::endl;
+        std::filesystem::create_directories(m_storeFolder);
     }
     if(!std::filesystem::is_directory(m_storeFolder))
     {

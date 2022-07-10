@@ -35,6 +35,7 @@ namespace FileSystemMonitor
         }
 
         // WIP -> extendable with other notifications later
+        void simulateFileCreation(const std::filesystem::path& p_file);
     };
 }  // namespace FileSystemMonitor
 

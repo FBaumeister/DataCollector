@@ -12,7 +12,7 @@ std::filesystem::path TarPackager::packWithUniqueFilename(const std::filesystem:
 {
     assert(!p_target.empty());
 
-    const auto uniqueFileName{generateUniqueFilename()};
+    const auto uniqueFileName{generateUniqueFilename() + ".tar"};
 
     /**
      * @brief QND solution
@@ -20,15 +20,14 @@ std::filesystem::path TarPackager::packWithUniqueFilename(const std::filesystem:
      */
 
     std::string cmd;
-    cmd += "tar";
-    cmd += "-cf";  // Arguments to pack
-    cmd += uniqueFileName + ".tar";
+    cmd += "tar ";
+    cmd += "-cf ";  // Arguments to pack
+    cmd += uniqueFileName + " ";
     cmd += p_target.string();
 
     system(cmd.c_str());  // QND solution.
 
-    throw std::runtime_error{"NOT IMPLEMENTED YET"};
-    return {};
+    return uniqueFileName;
 }
 
 std::string TarPackager::generateUniqueFilename()

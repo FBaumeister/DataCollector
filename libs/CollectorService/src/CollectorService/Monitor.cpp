@@ -22,18 +22,24 @@ Monitor::~Monitor() = default;  // Keep dependencies inside this translation uni
 
 void Monitor::onFileCreated(const std::filesystem::path& p_created)
 {
+    std::cout << "Monitor::onFileCreated trigger received for file: " << p_created.string() << std::endl;
     // Filter
     std::string ec;
-    if(FilenameChecker::isAllowed(p_created.string(), ec))  // Use the non-exception version
+    if(!FilenameChecker::isAllowed(p_created.string(), ec))  // Use the non-exception version
     {
+        std::cout << "Monitor::onFileCreated trigger discarded. Does not match criteria!" << std::endl;
         return;
     }
 
     try
     {
         // Trigger DataCollector
+        std::cout << "Monitor: triggering Data Collector..." << std::endl;
         const auto folderToPack = m_collector->triggerDataCollection();
+        std::cout << "Monitor: Data Collector logged data to " << folderToPack.string() << std::endl;
+
         auto packedTarball = m_packager->packWithUniqueFilename(folderToPack);
+        std::cout << "Monitor: packed tarball: " << packedTarball.string() << std::endl;
     }
     catch(std::exception& e)
     {

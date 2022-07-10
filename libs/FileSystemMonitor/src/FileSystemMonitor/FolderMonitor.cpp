@@ -13,3 +13,8 @@ FolderMonitor::FolderMonitor(std::filesystem::path p_folder)
     }
 }
 FolderMonitor::~FolderMonitor() = default;
+
+void FolderMonitor::simulateFileCreation(const std::filesystem::path& p_file)
+{
+    onFileCreated(p_file);
+}

@@ -2,6 +2,7 @@
 #include "CollectorService/FilenameChecker.h"
 #include "CollectorService/Monitor.h"
 #include "CollectorService/DiskUsageCollector.h"
+#include "CollectorService/DemoCollector.h"
 
 #include "DataCollector/CollectorInstance.h"
 
@@ -15,12 +16,13 @@
 
 using namespace CollectorService;
 
-std::atomic<bool> KEEP_SERVICE_RUNNING{true};  // qnd
-
+std::atomic<bool> KEEP_SERVICE_RUNNING{true};
 void consoleHandler(int signal)
 {
     std::cout << "\nSignal received (" << signal << "). Stopping..." << std::endl;
     KEEP_SERVICE_RUNNING = false;
+
+    std::fclose(stdin);  // Bad! Only for demo-code!
 }
 
 
@@ -31,11 +33,10 @@ void printHelp()
 
 void processCommandLineOptions(int argc, char **argv)
 {
-    std::cout << "WIP: processCommandLineOptions" << std::endl;
+    // TODO: Parse
     for(int i = 0; i < argc; ++i)
     {
-        std::cout << std::string{argv[i]} << std::endl;
-        // WIP
+        //std::cout << std::string{argv[i]} << std::endl;
     }
 }
 
@@ -45,13 +46,12 @@ int main(int argc, char **argv)
 
     // [TODO] Utilities - process and filter argv
     processCommandLineOptions(argc, argv);
-    const auto fileToSearchFor = ("core.1234.lz4");       // Configurable via Commandline args
-    const auto folderToMonitor = std::string(".");        // Configurable via Commandline args
-    const auto logToFolder = std::filesystem::path(".");  // Configurable via Commandline args
-
+    const auto fileToSearchFor = std::filesystem::path("core.1234.lz4");  // Configurable via Commandline args
+    const auto logToFolder = std::filesystem::path("./log");              // Configurable via Commandline args
+    const auto folderToMonitor = std::string(".");                        // Configurable via Commandline args
 
     std::string ec;
-    if(!FilenameChecker::isAllowed(fileToSearchFor, ec))
+    if(!FilenameChecker::isAllowed(fileToSearchFor.string(), ec))
     {
         std::cout << "FileName does not match searching criteria: " << fileToSearchFor << std::endl;
         printHelp();
@@ -63,21 +63,28 @@ int main(int argc, char **argv)
 
     // Register collectors. Triggered when monitored file is created
     dataCollector->registerCollector(std::make_shared<DiskUsageCollector>());
-    //dataCollector.registerCollector(SomeCustomCollector?);
+    dataCollector->registerCollector(std::make_shared<DemoCollector>());
 
     // Start monitoring
     Monitor fileMonitor{folderToMonitor, std::move(dataCollector)};
-
 
     // Utilities - setup console signal handler (interrupt loop and safe cleanup)
     Utilities::setConsoleSignalHandler(consoleHandler);
 
     // Operational State -> Loop until SIGINT
 
-    std::cout << "Entering operational state. Press Ctrl + C to quit." << std::endl;
+    std::cout << "Entering operational state." << std::endl;
+    std::cout << "Press Return to simulate a trigger." << std::endl;
+    std::cout << "Press Ctrl + C to quit." << std::endl;
     while(KEEP_SERVICE_RUNNING)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds{10});
+
+        if(std::cin.get() == '\n')
+        {
+            std::cout << "Simulating File Creation for File " << fileToSearchFor.string() << " ..." << std::endl;
+            fileMonitor.simulateFileCreation(fileToSearchFor);
+        }
     }
 
     std::cout << "Exit." << std::endl;
